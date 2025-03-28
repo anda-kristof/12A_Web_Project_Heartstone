@@ -1,0 +1,224 @@
+#palya{
+  background-image: url(/public/images/palya_alap.jpg);
+  background-size:cover;
+  border-radius: 12px;
+  border: 4px solid #7d4e1d;
+  height: 600px;
+}
+
+#player1_bar{
+  background-color:peru;
+  border-radius: 12px;
+  border: 4px solid #7d4e1d;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+}
+
+#player1_bar h2{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#player2_bar h2{
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+#player2_bar{
+  background-color:peru;
+  border-radius: 12px;
+  border: 4px solid #7d4e1d;
+  height: 50px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+}
+
+.separator_border{
+  border-radius: 12px;
+  border: 4px solid #7d4e1d;
+}
+
+#player1_row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 255, 0.5);
+}
+
+#player2_row{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(255, 0, 0, 0.5);
+}
+
+#player1_row > div{
+  border-radius: 6px;
+  border: 4px solid black;
+  display: inline-block;
+  /* background-color: black; */
+  width: 150px;
+  height: 268px;
+  margin: 10px 10px 20px 20px;
+}
+
+#player2_row > div{
+  border-radius: 6px;
+  border: 4px solid black;
+  display: inline-block;
+  /* background-color: black; */
+  width: 150px;
+  height: 268px;
+  margin: 10px 10px 20px 20px;
+}
+
+#player1_face{
+  border-radius: 12px;
+  border: 4px solid black;
+  background-color: dodgerblue;
+  height: 50px;
+}
+
+#player2_face{
+  border-radius: 12px;
+  border: 4px solid black;
+  background-color: red;
+  height: 50px;
+}
+
+#hand{
+  height: 350px;
+  background-color: peru;
+  border-radius: 6px;
+  border: 4px solid #7d4e1d;
+  margin-top: 10px;
+}
+
+#hand > div{
+  border-radius: 6px;
+  border: 4px solid #7d4e1d;
+  display: inline-block;
+  background-color: black;
+  width: 150px;
+  height: 268px;
+  margin: 0 10px 10px 10px;
+}
+
+#handText{
+  border-radius: 12px;
+  border: 4px solid black;
+  background-color:dodgerblue;
+  height: 50px;
+}
+
+#newGameBtn{
+  border-radius: 12px;
+  border: 4px solid black;
+  font-size: 20px;
+  font-weight: bold;
+  width: 200px;
+}
+
+.segedDiv{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+#gameDiv{
+  display: none;
+}
+
+.cardAbility {
+  visibility: hidden;
+  width: 140px;
+  background-color: black;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px;
+  position: absolute;
+  z-index: 1;
+  bottom: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.cardInHand {
+  cursor: pointer;
+  position: relative;
+}
+
+.cardInHand:hover .cardAbility {
+  visibility: visible;
+  opacity: 1;
+}
+
+/* kartya magassaga: 260px */
+.cardImage img{
+  height: 100px;
+  width:100%;
+  -webkit-user-drag: none;
+}
+
+
+#roundEndBtn{
+  font-size: 20px;
+  color: black;
+  font-weight: bold;
+  border-radius: 12px;
+  border: 4px solid black;
+  width: 200px;
+}
+
+.cardStats{
+  background-color:chocolate;
+  display: flex;
+  justify-content: center;
+  align-items: bottom;
+}
+
+.cardStats h2{
+  height: 30px;
+  margin-left: 15px;
+  margin-right: 15px;
+  text-shadow: 0 2px 2px black;
+}
+
+.CS_HP{
+  color: crimson;
+}
+.CS_Mana{
+  color: skyblue;
+}
+.CS_Attack{
+  color: yellow;
+}
+
+.cardStats img{
+  width: 50px;
+  height: 50px;
+}
+
+.cardName{
+  background-color: chocolate;
+  text-align: center;
+  font-weight: bold;
+}
+
+#gameEndText{
+  display: none;
+  text-align: center;
+}
+
+.cardNumber{
+  display: none;
+}

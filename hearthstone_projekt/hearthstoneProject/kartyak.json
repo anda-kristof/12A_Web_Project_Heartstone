@@ -1,0 +1,12 @@
+{
+"kartyak":
+[
+    {
+        "nev": "placeholder kártya",
+        "kepURL": "/images/card_placeholder.png",
+        "mana": 1,
+        "sebzes": 2,
+        "hp": 3
+    }
+]
+}
