@@ -61,7 +61,6 @@
   border-radius: 6px;
   border: 4px solid black;
   display: inline-block;
-  /* background-color: black; */
   width: 150px;
   height: 268px;
   margin: 10px 10px 20px 20px;
@@ -71,7 +70,6 @@
   border-radius: 6px;
   border: 4px solid black;
   display: inline-block;
-  /* background-color: black; */
   width: 150px;
   height: 268px;
   margin: 10px 10px 20px 20px;
@@ -103,7 +101,7 @@
   border-radius: 6px;
   border: 4px solid #7d4e1d;
   display: inline-block;
-  background-color: black;
+  background-color: chocolate;
   width: 150px;
   height: 268px;
   margin: 0 10px 10px 10px;
@@ -221,4 +219,13 @@
 
 .cardNumber{
   display: none;
+}
+
+.cardRarity{
+  margin-top: 20px;
+  background-color: chocolate;
+  text-align: center;
+  font-weight: bold;
+  /* color: white; */
+  text-shadow: 0 2px 2px black;
 }

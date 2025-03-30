@@ -1,13 +1,129 @@
 {
-"kartyak":
-[
-    {
-        "nev": "placeholder kártya",
-        "kepURL": "/images/card_placeholder.png",
-        "mana": 1,
-        "sebzes": 2,
-        "hp": 3,
-        "rarity": "common"
-    }
-]
+    "kartyak":
+    [
+        
+            {
+                "nev": "Guardian of Jedlik",
+                "kepURL": "/images/jedberus.jpg",
+                "mana": 10,
+                "sebzes": 9,
+                "hp": 18,
+                "rarity": "legendary"
+            },
+            {
+                "nev": "Balázs Bulk",
+                "kepURL": "/images/balazsbulk.jpg",
+                "mana": 9,
+                "sebzes": 5,
+                "hp": 25,
+                "rarity": "legendary"
+            },
+            {
+                "nev": "TheMan",
+                "kepURL": "/images/TheMan.jpg",
+                "mana": 8,
+                "sebzes": 7,
+                "hp": 16,
+                "rarity": "legendary"
+            },
+            {
+                "nev": "Brotherhood",
+                "kepURL": "/images/ikertestorok.png",
+                "mana": 6,
+                "sebzes": 6,
+                "hp": 9,
+                "rarity": "epic"
+            },
+            {
+                "nev": "Soós Gábor",
+                "kepURL": "/images/sosgabor.png",
+                "mana": 4,
+                "sebzes": 5,
+                "hp": 6,
+                "rarity": "epic"
+            },
+            {
+                "nev": "Stephen Hawking",
+                "kepURL": "/images/putyin.jpg",
+                "mana": 0,
+                "sebzes": 1,
+                "hp": 1,
+                "rarity": "epic"
+            },
+            {
+                "nev": "Szoó Virág",
+                "kepURL": "/images/ntf.jpg",
+                "mana": 3,
+                "sebzes": 2,
+                "hp": 4,
+                "rarity": "rare"
+            }, 
+            {
+                "nev": "Hog Rider",
+                "kepURL": "/images/hogrider.jpg",
+                "mana": 4,
+                "sebzes": 4,
+                "hp": 4,
+                "rarity": "rare"
+            }, 
+            {
+                "nev": "Árpád",
+                "kepURL": "/images/Arpad.jpg",
+                "mana": 5,
+                "sebzes": 6,
+                "hp": 3,
+                "rarity": "rare"
+            }, 
+            {
+                "nev": "Chase",
+                "kepURL": "/images/kocsogkutya.webp",
+                "mana": 2,
+                "sebzes": 2,
+                "hp": 3,
+                "rarity": "rare"
+            }, 
+            {
+                "nev": "Goblin",
+                "kepURL": "/images/goblin.jpg",
+                "mana": 2,
+                "sebzes": 3,
+                "hp": 2,
+                "rarity": "common"
+            },
+            {
+                "nev": "Skeleton Balázs",
+                "kepURL": "/images/skeletonbalazs.jpg",
+                "mana": 1,
+                "sebzes": 2,
+                "hp": 1,
+                "rarity": "common"
+            }, 
+            {
+                "nev": "Bartos Cs. István",
+                "kepURL": "/images/bartos.jpg",
+                "mana": 3,
+                "sebzes": 1,
+                "hp": 5,
+                "rarity": "common"
+            }, 
+            {
+                "nev": "Cuki Kecske",
+                "kepURL": "/images/2.jpg",
+                "mana": 1,
+                "sebzes": 1,
+                "hp": 1,
+                "rarity": "common"
+            },
+            {
+                "nev": "Monyók",
+                "kepURL": "/images/monyok.jpg",
+                "mana": 1,
+                "sebzes": 1,
+                "hp": 1,
+                "rarity": "common"
+            }
+            
+
+        
+    ]
 }

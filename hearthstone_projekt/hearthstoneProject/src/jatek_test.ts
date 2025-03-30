@@ -44,7 +44,11 @@ export default class Jatek{
 
         
         this.selectedhandcard = null;
-        this.kartyakLista = kartyak; 
+        this.kartyakLista = [];
+        if (!Array.isArray(kartyak)) console.log(kartyak);
+        kartyak.forEach(k => {
+            this.kartyakLista.push(k);
+        });
         
         this.battlefield = new Battlefield
         this.battlefield = new Battlefield();

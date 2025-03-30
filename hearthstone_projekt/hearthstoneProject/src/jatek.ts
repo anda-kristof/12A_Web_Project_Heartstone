@@ -24,6 +24,7 @@ let aktManaP1: number = 0;
 let hpP1: number = 30;
 let kartyakP1: number[];
 let pakliSorrendP1: number[];
+let huzasIndexP1: number = 3;
 
 //2.játékos
 let manaP2: number = 0;
@@ -31,6 +32,7 @@ let aktManaP2: number = 0;
 let hpP2: number = 30;
 let kartyakP2: number[];
 let pakliSorrendP2: number[];
+let huzasIndexP2: number = 3;
 
 //kártyák
 interface Kartya {
@@ -40,6 +42,7 @@ interface Kartya {
     sebzes: number;
     hp: number;
     kartyaSzam: number;
+    rarity: string;
 }
 
 
@@ -57,6 +60,7 @@ export default class Jatek{
     private p1Bar: HTMLDivElement | null;
     private p2Bar: HTMLDivElement | null;
     private gameEndText: HTMLDivElement | null;
+    private palya: HTMLDivElement | null;
 
     constructor(){
         this.jatekDiv = document.querySelector("#gameDiv");
@@ -84,6 +88,7 @@ export default class Jatek{
         this.p1Bar = document.querySelector("#player1_bar");
         this.p2Bar = document.querySelector("#player2_bar");
         this.gameEndText = document.querySelector("#gameEndText");
+        this.palya = document.querySelector("#palya");
     }
 
     private loadData(): Promise<string> {
@@ -108,6 +113,31 @@ export default class Jatek{
         });
     }
 
+    private pakliSorsol(): number[]{
+        //12 -> 1 lega, 2-3 epic, 4-5-6 rare, 7-8-9-10-11-12 common esélyek
+        //15 kártya
+        //json fájlban -> 1-2-3lega, 4-5-6epic, 7-8-9-10rare, 11-12-13-14-15common
+        let vissza: number[] = [];
+        for(let i = 0; i < 60; i++){
+            let raritySorsol = Math.floor(Math.random()*11) + 1;
+            let kartyaIndex = 0;
+
+            //lega
+            if(raritySorsol == 1){
+                kartyaIndex = Math.floor(Math.random()*2) + 1;
+            }
+            //epic
+            if(raritySorsol > 1 && raritySorsol < 4) kartyaIndex = Math.floor(Math.random()*2) + 4;
+            //rare
+            if(raritySorsol > 3 && raritySorsol < 7) kartyaIndex = Math.floor(Math.random()*3) + 7;
+            //common
+            if(raritySorsol > 6) kartyaIndex = Math.floor(Math.random()*4) + 11;
+
+            vissza.push(kartyaIndex-1);
+        }
+        return vissza;
+    }
+
     private kartyakFeltolt(kartyak: any[]): Kartya[] {
         let vissza: Kartya[] = [];
         let seged1: number = 0;
@@ -119,7 +149,8 @@ export default class Jatek{
                 mana:k.mana,
                 sebzes: k.sebzes,
                 hp: k.hp,
-                kartyaSzam: seged1
+                kartyaSzam: seged1,
+                rarity: k.rarity
             };
 
             seged1++;
@@ -136,10 +167,13 @@ export default class Jatek{
         this.jatekDiv!.style.display = "inline";
 
         //kártyák kisorsolása
+        pakliSorrendP1 = this.pakliSorsol();
+        pakliSorrendP2 = this.pakliSorsol();
 
         //kártyák kiosztása (todo: ki kell sorsolni)
-        kartyakP1 = [0,0,0];
-        kartyakP2 = [0,0,0];
+        kartyakP1 = [pakliSorrendP1[0],pakliSorrendP1[1],pakliSorrendP1[2]];
+        kartyakP2 = [pakliSorrendP1[0],pakliSorrendP1[1],pakliSorrendP1[2]];
+
 
         //checkforActive
         //checkforCards
@@ -186,7 +220,8 @@ export default class Jatek{
                     mana: Number(document.querySelector(`#p${aktJatekos}_c${i} .CS_Mana`)!.innerHTML),
                     sebzes: Number(document.querySelector(`#p${aktJatekos}_c${i} .CS_Attack`)!.innerHTML),
                     hp: Number(document.querySelector(`#p${aktJatekos}_c${i} .CS_HP`)!.innerHTML),
-                    kartyaSzam: Number(document.querySelector(`#p${aktJatekos}_c${i} .cardNumber`)!.innerHTML)
+                    kartyaSzam: Number(document.querySelector(`#p${aktJatekos}_c${i} .cardNumber`)!.innerHTML),
+                    rarity: document.querySelector(`#p${aktJatekos}_c${i} .cardRarity`)!.innerHTML
                 };
 
                 aktKartya.addEventListener("click", () => this.kartyaTamadas(aktKartyaAdatok, i));
@@ -225,7 +260,8 @@ export default class Jatek{
                     mana: 0,
                     sebzes: Number(document.querySelector(`#p${ellenfel}_c${i} .CS_Attack`)!.innerHTML),
                     hp: Number(document.querySelector(`#p${ellenfel}_c${i} .CS_HP`)!.innerHTML),
-                    kartyaSzam: Number(document.querySelector(`#p${ellenfel}_c${i} .cardNumber`)!.innerHTML)
+                    kartyaSzam: Number(document.querySelector(`#p${ellenfel}_c${i} .cardNumber`)!.innerHTML),
+                    rarity: document.querySelector(`#p${ellenfel}_c${i} .cardRarity`)!.innerHTML
                 };
                 aktKartyaHely.addEventListener("click", () => this.tamadasMinion(aktKartya, ellenfelKartyaAdatok, kartyaIndex, i));
             }
@@ -288,13 +324,15 @@ export default class Jatek{
         //todo sorsolás
         if(aktJatekos == 1){
             if(kartyakP1.length < 7){
-                kartyakP1.push(0);
+                kartyakP1.push(pakliSorrendP1[huzasIndexP1]);
             }
+            huzasIndexP1++;
         }
         else{
             if(kartyakP2.length < 7){
-                kartyakP2.push(0);
+                kartyakP2.push(pakliSorrendP1[huzasIndexP2]);
             } 
+            huzasIndexP2++;
         }
     }
 
@@ -311,6 +349,12 @@ export default class Jatek{
         let seged: number = 0;
 
         aktKartyak.forEach(k => {
+            let szin = "";
+            let aktRarity = this.kartyakLista![k].rarity;
+            if(aktRarity == "legendary") szin = "orange";
+            else if(aktRarity == "epic") szin = "darkorchid";
+            else if(aktRarity == "rare") szin = "blue";
+            else if(aktRarity == "common") szin = "white";
             this.hand!.innerHTML += `
                     <div class="cardInHand card${seged}">
                         <div class="cardImage">
@@ -328,13 +372,14 @@ export default class Jatek{
                         </div>
                         <div class="cardName card${seged}-name">${this.kartyakLista![k].nev}</div>
                         <div class="cardNumber card${seged}-number">${k}</div>
+                        <div class="cardRarity card${seged}-rarity" style="color:${szin};">${aktRarity}</div>
                     </div>
             `;
             seged++;
         })
 
         document.querySelectorAll(".cardInHand").forEach(ke => {
-            ke.addEventListener("click", () => this.kartyaLerakas(ke.classList[1])); 
+            ke.addEventListener("click", () => this.kartyaLerakas(ke.classList[1]));
         })
     }
 
@@ -348,7 +393,8 @@ export default class Jatek{
             mana: Number(document.querySelector(`.${kIndex}-mana`)!.innerHTML),
             sebzes: Number(document.querySelector(`.${kIndex}-attack`)!.innerHTML),
             hp: Number(document.querySelector(`.${kIndex}-hp`)!.innerHTML),
-            kartyaSzam: Number(document.querySelector(`.${kIndex}-number`)!.innerHTML)
+            kartyaSzam: Number(document.querySelector(`.${kIndex}-number`)!.innerHTML),
+            rarity: document.querySelector(`.${kIndex}-rarity`)!.innerHTML
         };
 
         //megnézi hogy van-e elég mana
@@ -373,6 +419,12 @@ export default class Jatek{
     //jobban is meglehetett volna csinálni
     private kartyaLerakasSeged(aktKartyaAdatok: Kartya, aktKartyaID: string, kIndex: string):void{
         const aktKartyaHely = document.querySelector(aktKartyaID) as HTMLElement;
+        let szin = "";
+        let aktRarity = aktKartyaAdatok.rarity;
+        if(aktRarity == "legendary") szin = "orange";
+        if(aktRarity == "epic") szin = "darkorchid";
+        if(aktRarity == "rare") szin = "blue";
+        if(aktRarity == "common") szin = "white";
         aktKartyaHely.innerHTML = `
         <div class="cardImage">
             <img src="${aktKartyaAdatok.kepURL}" alt="card_image">
@@ -389,7 +441,9 @@ export default class Jatek{
         </div>
         <div class="cardName">${aktKartyaAdatok.nev}</div>
         <div class="cardNumber">${aktKartyaAdatok.kartyaSzam}</div>
+        <div class="cardRarity" style="color:${szin};">${aktKartyaAdatok.rarity}</div>
         `;
+        aktKartyaHely.style.backgroundColor = "chocolate";
 
         //mana levonása
         if(aktJatekos == 1){
@@ -429,7 +483,7 @@ export default class Jatek{
                     kartyakP2.splice(indexSeged, 1);
                     kiveszSeged = false;
                 }
-                indexSeged++; 
+                indexSeged++;
             });
         }
 
@@ -460,6 +514,7 @@ export default class Jatek{
             ujAktKartya.id = `p${aktJatekos}_c${i}`;
             ujAktKartya.innerHTML = adatMentes;
             ujAktKartya.className = classMentes;
+            if(adatMentes != "") ujAktKartya.style.backgroundColor = "chocolate";
 
             aktSor.appendChild(ujAktKartya);
             // aktKartyaHely.style.boxShadow = "none";
@@ -478,6 +533,7 @@ export default class Jatek{
             ujAktKartya.id = `p${ellenfel}_c${i}`;
             ujAktKartya.innerHTML = adatMentes;
             ujAktKartya.className = classMentes;
+            if(adatMentes != "") ujAktKartya.style.backgroundColor = "chocolate";
 
             aktSor.appendChild(ujAktKartya);
             // aktKartyaHely.style.boxShadow = "none";
@@ -510,6 +566,15 @@ export default class Jatek{
         if(aktJatekos == 1) aktJatekos = 2;
         else aktJatekos = 1;
 
+        //térfél fordítás
+        // const adatMentes1 = this.p1Row?.innerHTML;
+        // const adatMentes2 = this.p2Row?.innerHTML;
+        // if(aktJatekos == 1){
+        //     this.palya!.innerHTML = `<div id="player2_row">${adatMentes2}</div><div class="separator_border"></div> <div id="player1_row">${adatMentes1}</div>`;
+        // }
+        // else{
+        //     this.palya!.innerHTML = `<div id="player1_row">${adatMentes1}</div><div class="separator_border"></div> <div id="player2_row">${adatMentes2}</div>`;
+        // }
         this.noBoxShadow();
 
         this.ujKor();
