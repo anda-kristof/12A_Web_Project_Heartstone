@@ -330,7 +330,7 @@ export default class Jatek{
         }
         else{
             if(kartyakP2.length < 7){
-                kartyakP2.push(pakliSorrendP1[huzasIndexP2]);
+                kartyakP2.push(pakliSorrendP2[huzasIndexP2]);
             } 
             huzasIndexP2++;
         }
