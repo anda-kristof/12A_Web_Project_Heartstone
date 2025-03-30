@@ -334,7 +334,7 @@ export default class Jatek{
         })
 
         document.querySelectorAll(".cardInHand").forEach(ke => {
-            ke.addEventListener("click", () => this.kartyaLerakas(ke.classList[1]));
+            ke.addEventListener("click", () => this.kartyaLerakas(ke.classList[1])); 
         })
     }
 
@@ -429,7 +429,7 @@ export default class Jatek{
                     kartyakP2.splice(indexSeged, 1);
                     kiveszSeged = false;
                 }
-                indexSeged++;
+                indexSeged++; 
             });
         }
 
