@@ -45,6 +45,7 @@ export default class Jatek{
         
         this.selectedhandcard = null;
         this.kartyakLista = kartyak; 
+        
         this.battlefield = new Battlefield
         this.battlefield = new Battlefield();
 this.battlefield.fields.forEach(f => {
@@ -69,7 +70,7 @@ this.battlefield.fields.forEach(f => {
         this.ujJatekGomb?.addEventListener("click", this.UjJatek.bind(this));
 
         this.korVegeGomb = document.querySelector("#roundEndBtn");
-        this.korVegeGomb?.addEventListener("click", this.korVege.bind(this));
+        // this.korVegeGomb?.addEventListener("click", this.korVege.bind(this));
 
         this.handDiv = document.querySelector("#hand");
         this.turnInfoDiv = document.querySelector("#turnInfo");
@@ -108,8 +109,8 @@ this.battlefield.fields.forEach(f => {
     private PakliFeltolt(pakli: Kartya[], psz: number): void{
         //psz kártya egy pakliban
         while(pakli.length < psz){
-
-            let randind: number = Math.floor(Math.random()*(this.kartyakLista.length))
+            console.log(this.kartyakLista)
+            let randind: number = Math.floor(Math.random()*(this.kartyakLista!.length))
             let hozzadaszsam: number = 0;
             if(this.kartyakLista[randind].rarity == "common"){
                 hozzadaszsam = 6

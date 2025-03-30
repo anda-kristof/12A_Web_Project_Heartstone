@@ -108,12 +108,14 @@ function kartyakFeltolt(kartyak: any[]): Kartya[] {
         return vissza;
     }
     let kartyakLista: any[];
+    let jatek: Jatek;
 loadData()
         .then((data: string) => {
             kartyakLista = JSON.parse(data).kartyak;
+            
+             jatek = new Jatek(30, kartyakFeltolt(kartyakLista))
         })
         .catch((error: unknown) => {
             console.log(String(error));
         });
 
-let jatek = new Jatek(30, kartyakFeltolt(kartyakLista))
