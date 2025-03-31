@@ -4,15 +4,15 @@
         
             {
                 "nev": "Guardian of Jedlik",
-                "kepURL": "/images/jedberus.jpg",
+                "kepURL": "/images/ujKepek/jedberus.png",
                 "mana": 10,
                 "sebzes": 9,
-                "hp": 18,
+                "hp": 20,
                 "rarity": "legendary"
             },
             {
                 "nev": "Balázs Bulk",
-                "kepURL": "/images/balazsbulk.jpg",
+                "kepURL": "/images/ujKepek/balazsbulkcard.png",
                 "mana": 9,
                 "sebzes": 5,
                 "hp": 25,
@@ -20,7 +20,7 @@
             },
             {
                 "nev": "TheMan",
-                "kepURL": "/images/TheMan.jpg",
+                "kepURL": "/images/ujKepek/themodoscard.png",
                 "mana": 8,
                 "sebzes": 7,
                 "hp": 16,
@@ -28,7 +28,7 @@
             },
             {
                 "nev": "Brotherhood",
-                "kepURL": "/images/ikertestorok.png",
+                "kepURL": "/images/ujKepek/brotherhoodcard.png",
                 "mana": 6,
                 "sebzes": 6,
                 "hp": 9,
@@ -36,7 +36,7 @@
             },
             {
                 "nev": "Soós Gábor",
-                "kepURL": "/images/sosgabor.png",
+                "kepURL": "/images/ujKepek/sosgaborcard.png",
                 "mana": 4,
                 "sebzes": 5,
                 "hp": 6,
@@ -44,7 +44,7 @@
             },
             {
                 "nev": "Stephen Hawking",
-                "kepURL": "/images/putyin.jpg",
+                "kepURL": "/images/ujKepek/stephenhawkingcard.png",
                 "mana": 0,
                 "sebzes": 1,
                 "hp": 1,
@@ -52,7 +52,7 @@
             },
             {
                 "nev": "Szoó Virág",
-                "kepURL": "/images/ntf.jpg",
+                "kepURL": "/images/ujKepek/ntfcard.png",
                 "mana": 3,
                 "sebzes": 2,
                 "hp": 4,
@@ -60,7 +60,7 @@
             }, 
             {
                 "nev": "Hog Rider",
-                "kepURL": "/images/hogrider.jpg",
+                "kepURL": "/images/ujKepek/hogrider.png",
                 "mana": 4,
                 "sebzes": 4,
                 "hp": 4,
@@ -68,15 +68,15 @@
             }, 
             {
                 "nev": "Árpád",
-                "kepURL": "/images/Arpad.jpg",
+                "kepURL": "/images/ujKepek/arpadcard.png",
                 "mana": 5,
                 "sebzes": 6,
-                "hp": 3,
+                "hp": 4,
                 "rarity": "rare"
             }, 
             {
                 "nev": "Chase",
-                "kepURL": "/images/kocsogkutya.webp",
+                "kepURL": "/images/ujKepek/chasecard.png",
                 "mana": 2,
                 "sebzes": 2,
                 "hp": 3,
@@ -84,7 +84,7 @@
             }, 
             {
                 "nev": "Goblin",
-                "kepURL": "/images/goblin.jpg",
+                "kepURL": "/images/ujKepek/goblincard.png",
                 "mana": 2,
                 "sebzes": 3,
                 "hp": 2,
@@ -92,7 +92,7 @@
             },
             {
                 "nev": "Skeleton Balázs",
-                "kepURL": "/images/skeletonbalazs.jpg",
+                "kepURL": "/images/ujKepek/skeletonbalazscard.png",
                 "mana": 1,
                 "sebzes": 2,
                 "hp": 1,
@@ -100,7 +100,7 @@
             }, 
             {
                 "nev": "Bartos Cs. István",
-                "kepURL": "/images/bartos.jpg",
+                "kepURL": "/images/ujKepek/bartoscard.png",
                 "mana": 3,
                 "sebzes": 1,
                 "hp": 5,
@@ -108,7 +108,7 @@
             }, 
             {
                 "nev": "Cuki Kecske",
-                "kepURL": "/images/2.jpg",
+                "kepURL": "/images/ujKepek/cukikecske.png",
                 "mana": 1,
                 "sebzes": 1,
                 "hp": 1,
@@ -116,7 +116,7 @@
             },
             {
                 "nev": "Monyók",
-                "kepURL": "/images/monyok.jpg",
+                "kepURL": "/images/ujKepek/monyokcard.png",
                 "mana": 1,
                 "sebzes": 1,
                 "hp": 1,

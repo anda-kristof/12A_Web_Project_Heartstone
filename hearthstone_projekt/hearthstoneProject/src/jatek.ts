@@ -21,7 +21,7 @@ let aktJatekos: number = 1;
 //1. játékos
 let manaP1: number = 0;
 let aktManaP1: number = 0;
-let hpP1: number = 30;
+let hpP1: number = 50;
 let kartyakP1: number[];
 let pakliSorrendP1: number[];
 let huzasIndexP1: number = 3;
@@ -29,7 +29,7 @@ let huzasIndexP1: number = 3;
 //2.játékos
 let manaP2: number = 0;
 let aktManaP2: number = 0;
-let hpP2: number = 30;
+let hpP2: number = 50;
 let kartyakP2: number[];
 let pakliSorrendP2: number[];
 let huzasIndexP2: number = 3;
@@ -119,19 +119,19 @@ export default class Jatek{
         //json fájlban -> 1-2-3lega, 4-5-6epic, 7-8-9-10rare, 11-12-13-14-15common
         let vissza: number[] = [];
         for(let i = 0; i < 60; i++){
-            let raritySorsol = Math.floor(Math.random()*11) + 1;
+            let raritySorsol = Math.floor(Math.random()*12) + 1;
             let kartyaIndex = 0;
 
             //lega
             if(raritySorsol == 1){
-                kartyaIndex = Math.floor(Math.random()*2) + 1;
+                kartyaIndex = Math.floor(Math.random()*3) + 1;
             }
             //epic
-            if(raritySorsol > 1 && raritySorsol < 4) kartyaIndex = Math.floor(Math.random()*2) + 4;
+            if(raritySorsol > 1 && raritySorsol < 4) kartyaIndex = Math.floor(Math.random()*3) + 4;
             //rare
-            if(raritySorsol > 3 && raritySorsol < 7) kartyaIndex = Math.floor(Math.random()*3) + 7;
+            if(raritySorsol > 3 && raritySorsol < 7) kartyaIndex = Math.floor(Math.random()*4) + 7;
             //common
-            if(raritySorsol > 6) kartyaIndex = Math.floor(Math.random()*4) + 11;
+            if(raritySorsol > 6) kartyaIndex = Math.floor(Math.random()*5) + 11;
 
             vissza.push(kartyaIndex-1);
         }
@@ -162,6 +162,34 @@ export default class Jatek{
     }
 
     private ujJatek(): void {
+        manaP1 = 0;
+        manaP2 = 0;
+        hpP1 = 5;
+        hpP2 = 5;
+        this.playerBarUpdate();
+        this.palya!.innerHTML = `
+                    <div id="player2_row">
+            <div id="p2_c1" class=""></div>
+            <div id="p2_c2" class=""></div>
+            <div id="p2_c3" class=""></div>
+            <div id="p2_c4" class=""></div>
+            <div id="p2_c5" class=""></div>
+            <div id="p2_c6" class=""></div>
+            <div id="p2_c7" class=""></div>
+        </div>
+    
+        <div class="separator_border"></div>
+
+        <div id="player1_row">
+            <div id="p1_c1" class=""></div>
+            <div id="p1_c2" class=""></div>
+            <div id="p1_c3" class=""></div>
+            <div id="p1_c4" class=""></div>
+            <div id="p1_c5" class=""></div>
+            <div id="p1_c6" class=""></div>
+            <div id="p1_c7" class=""></div>
+        </div>
+        `;
         this.gameEndText!.style.display = "none";
         this.ujJatekGomb!.style.display = "none";
         this.jatekDiv!.style.display = "inline";
@@ -172,7 +200,7 @@ export default class Jatek{
 
         //kártyák kiosztása (todo: ki kell sorsolni)
         kartyakP1 = [pakliSorrendP1[0],pakliSorrendP1[1],pakliSorrendP1[2]];
-        kartyakP2 = [pakliSorrendP1[0],pakliSorrendP1[1],pakliSorrendP1[2]];
+        kartyakP2 = [pakliSorrendP2[0],pakliSorrendP2[1],pakliSorrendP2[2]];
 
 
         //checkforActive
@@ -212,11 +240,11 @@ export default class Jatek{
             if(aktKartya.className == "active"){
                 aktKartya.style.boxShadow = "0 0 15px 5px lightgreen";
 
-                const aktKep: HTMLImageElement = document.querySelector(`#p${aktJatekos}_c${i} .cardImage`) as HTMLImageElement;
+                // const aktKep: HTMLImageElement = document.querySelector(`#p${aktJatekos}_c${i} .cardImage`) as HTMLImageElement;
                 //át kell dolgozni
                 const aktKartyaAdatok: Kartya = {
                     nev: document.querySelector(`#p${aktJatekos}_c${i} .cardName`)!.innerHTML,
-                    kepURL: aktKep.src,
+                    kepURL: "",
                     mana: Number(document.querySelector(`#p${aktJatekos}_c${i} .CS_Mana`)!.innerHTML),
                     sebzes: Number(document.querySelector(`#p${aktJatekos}_c${i} .CS_Attack`)!.innerHTML),
                     hp: Number(document.querySelector(`#p${aktJatekos}_c${i} .CS_HP`)!.innerHTML),
@@ -323,14 +351,14 @@ export default class Jatek{
     private kartyaHuz(): void{
         //todo sorsolás
         if(aktJatekos == 1){
-            if(kartyakP1.length < 7){
+            if(kartyakP1.length < 6){
                 kartyakP1.push(pakliSorrendP1[huzasIndexP1]);
             }
             huzasIndexP1++;
         }
         else{
-            if(kartyakP2.length < 7){
-                kartyakP2.push(pakliSorrendP1[huzasIndexP2]);
+            if(kartyakP2.length < 6){
+                kartyakP2.push(pakliSorrendP2[huzasIndexP2]);
             } 
             huzasIndexP2++;
         }
@@ -350,31 +378,68 @@ export default class Jatek{
 
         aktKartyak.forEach(k => {
             let szin = "";
+            let szelesseg = 170;
+            let manaleft = 6;
+            let rarityTop = 65;
+            let attackTop = 84.5;
+            let attackLeft = 8;
+            let hpTop = 84.5;
+            let hpRight = 4;
+            let margin = "0 10px 10px 10px";
             let aktRarity = this.kartyakLista![k].rarity;
-            if(aktRarity == "legendary") szin = "orange";
+            if(aktRarity == "legendary") {
+                szin = "orange";
+                szelesseg = 225;
+
+                manaleft = 10;
+
+                rarityTop = 70;
+
+                attackTop = 87;
+                attackLeft = 13;
+
+                hpTop = 87;
+                hpRight = 10;
+
+                margin = "0 30px 10px 0";
+            }
             else if(aktRarity == "epic") szin = "darkorchid";
             else if(aktRarity == "rare") szin = "blue";
             else if(aktRarity == "common") szin = "white";
+            //url 
             this.hand!.innerHTML += `
-                    <div class="cardInHand card${seged}">
-                        <div class="cardImage">
-                            <img class="card${seged}-img" src="${this.kartyakLista![k].kepURL}" alt="card_image">
-                        </div>
-                        <div class="cardStats">
-                            <img src="/images/Health_value_back.webp" alt="hp">
-                            <img src="/images/manaHatterNelkul.png" alt="mana">
-                            <img src="/images/Attack_value_back.webp" alt="attack">
-                        </div>
-                        <div class="cardStats">
-                            <h2 class="CS_HP card${seged}-hp">${this.kartyakLista![k].hp}</h2>
-                            <h2 class="CS_Mana card${seged}-mana">${this.kartyakLista![k].mana}</h2>
-                            <h2 class="CS_Attack card${seged}-attack">${this.kartyakLista![k].sebzes}</h2>
-                        </div>
-                        <div class="cardName card${seged}-name">${this.kartyakLista![k].nev}</div>
-                        <div class="cardNumber card${seged}-number">${k}</div>
-                        <div class="cardRarity card${seged}-rarity" style="color:${szin};">${aktRarity}</div>
-                    </div>
+            <div class="hand-seged" style="margin: ${margin};">
+                <div class="cardInHand card${seged}" style="background-image: url('${this.kartyakLista![k].kepURL}'); width: ${szelesseg}px">
+                <h2 class="CS_HP card${seged}-hp" style="top: ${hpTop}%; right: ${hpRight}%">${this.kartyakLista![k].hp}</h2>
+                <h2 class="CS_Mana card${seged}-mana" style="left: ${manaleft}%">${this.kartyakLista![k].mana}</h2>
+                <h2 class="CS_Attack card${seged}-attack" style="top: ${attackTop}%; left: ${attackLeft}%">${this.kartyakLista![k].sebzes}</h2>
+                <div class="cardName card${seged}-name">${this.kartyakLista![k].nev}</div>
+                <div class="cardNumber card${seged}-number">${k}</div>
+                <div class="cardUrl card${seged}-url">${this.kartyakLista![k].kepURL}</div>
+                <div class="cardRarity card${seged}-rarity" style="color:${szin};top: ${rarityTop}%">${aktRarity}</div>
+                </div>
+            </div>
             `;
+            // this.hand!.innerHTML += `
+            //         <div class="cardInHand card${seged}">
+            //             <div class="cardImage">
+            //                 <img class="card${seged}-img" src="${this.kartyakLista![k].kepURL}" alt="card_image">
+            //             </div>
+            //             <div class="cardStats">
+            //                 <img src="/images/Health_value_back.webp" alt="hp">
+            //                 <img src="/images/manaHatterNelkul.png" alt="mana">
+            //                 <img src="/images/Attack_value_back.webp" alt="attack">
+            //             </div>
+            //             <div class="cardStats">
+            //                 <h2 class="CS_HP card${seged}-hp">${this.kartyakLista![k].hp}</h2>
+            //                 <h2 class="CS_Mana card${seged}-mana">${this.kartyakLista![k].mana}</h2>
+            //                 <h2 class="CS_Attack card${seged}-attack">${this.kartyakLista![k].sebzes}</h2>
+            //             </div>
+            //             <div class="cardName card${seged}-name">${this.kartyakLista![k].nev}</div>
+            //             <div class="cardNumber card${seged}-number">${k}</div>
+            //             <div class="cardRarity card${seged}-rarity" style="color:${szin};">${aktRarity}</div>
+            //         </div>
+            // `;
             seged++;
         })
 
@@ -385,11 +450,12 @@ export default class Jatek{
 
     private kartyaLerakas(kIndex: string): void{
         const aktKartya = document.querySelector(`.${kIndex}`) as HTMLElement;
-        const aktKep: HTMLImageElement = document.querySelector(`.${kIndex}-img`) as HTMLImageElement;
+        // const aktKep: HTMLImageElement = document.querySelector(`.${kIndex}-img`) as HTMLImageElement;
         //át kell dolgozni
         const aktKartyaAdatok: Kartya = {
             nev: document.querySelector(`.${kIndex}-name`)!.innerHTML,
-            kepURL: aktKep.src,
+            //kepURL: aktKep.src,
+            kepURL: document.querySelector(`.${kIndex}-url`)!.innerHTML,
             mana: Number(document.querySelector(`.${kIndex}-mana`)!.innerHTML),
             sebzes: Number(document.querySelector(`.${kIndex}-attack`)!.innerHTML),
             hp: Number(document.querySelector(`.${kIndex}-hp`)!.innerHTML),
@@ -425,25 +491,35 @@ export default class Jatek{
         if(aktRarity == "epic") szin = "darkorchid";
         if(aktRarity == "rare") szin = "blue";
         if(aktRarity == "common") szin = "white";
-        aktKartyaHely.innerHTML = `
-        <div class="cardImage">
-            <img src="${aktKartyaAdatok.kepURL}" alt="card_image">
-        </div>
-        <div class="cardStats">
-            <img src="/images/Health_value_back.webp" alt="hp">
-            <img src="/images/manaHatterNelkul.png" alt="mana">
-            <img src="/images/Attack_value_back.webp" alt="attack">
-        </div>
-        <div class="cardStats">
-            <h2 class="CS_HP">${aktKartyaAdatok.hp}</h2>
-            <h2 class="CS_Mana">${aktKartyaAdatok.mana}</h2>
-            <h2 class="CS_Attack">${aktKartyaAdatok.sebzes}</h2>
-        </div>
+        //url átírása
+        aktKartyaHely.innerHTML += `
+        <div class="tabla-seged" style="background-image: url('${aktKartyaAdatok.kepURL}');">
+        <h2 class="CS_HP">${aktKartyaAdatok.hp}</h2>
+        <h2 class="CS_Mana">${aktKartyaAdatok.mana}</h2>
+        <h2 class="CS_Attack">${aktKartyaAdatok.sebzes}</h2>
         <div class="cardName">${aktKartyaAdatok.nev}</div>
         <div class="cardNumber">${aktKartyaAdatok.kartyaSzam}</div>
         <div class="cardRarity" style="color:${szin};">${aktKartyaAdatok.rarity}</div>
+        </div>
         `;
-        aktKartyaHely.style.backgroundColor = "chocolate";
+        // aktKartyaHely.innerHTML = `
+        // <div class="cardImage">
+        //     <img src="${aktKartyaAdatok.kepURL}" alt="card_image">
+        // </div>
+        // <div class="cardStats">
+        //     <img src="/images/Health_value_back.webp" alt="hp">
+        //     <img src="/images/manaHatterNelkul.png" alt="mana">
+        //     <img src="/images/Attack_value_back.webp" alt="attack">
+        // </div>
+        // <div class="cardStats">
+        //     <h2 class="CS_HP">${aktKartyaAdatok.hp}</h2>
+        //     <h2 class="CS_Mana">${aktKartyaAdatok.mana}</h2>
+        //     <h2 class="CS_Attack">${aktKartyaAdatok.sebzes}</h2>
+        // </div>
+        // <div class="cardName">${aktKartyaAdatok.nev}</div>
+        // <div class="cardNumber">${aktKartyaAdatok.kartyaSzam}</div>
+        // <div class="cardRarity" style="color:${szin};">${aktKartyaAdatok.rarity}</div>
+        // `;
 
         //mana levonása
         if(aktJatekos == 1){
@@ -457,7 +533,7 @@ export default class Jatek{
 
         //kártya kivétele kézből
         let kiveszSeged = true;
-        document.querySelectorAll(".cardInHand").forEach(e => {
+        document.querySelectorAll(".hand-seged").forEach(e => {
             if(kiveszSeged && e.innerHTML.includes(`<div class="cardNumber ${kIndex}-number">${aktKartyaAdatok.kartyaSzam}</div>`)){
                 this.hand!.removeChild(e);
                 kiveszSeged = false;
@@ -514,7 +590,6 @@ export default class Jatek{
             ujAktKartya.id = `p${aktJatekos}_c${i}`;
             ujAktKartya.innerHTML = adatMentes;
             ujAktKartya.className = classMentes;
-            if(adatMentes != "") ujAktKartya.style.backgroundColor = "chocolate";
 
             aktSor.appendChild(ujAktKartya);
             // aktKartyaHely.style.boxShadow = "none";
@@ -533,7 +608,6 @@ export default class Jatek{
             ujAktKartya.id = `p${ellenfel}_c${i}`;
             ujAktKartya.innerHTML = adatMentes;
             ujAktKartya.className = classMentes;
-            if(adatMentes != "") ujAktKartya.style.backgroundColor = "chocolate";
 
             aktSor.appendChild(ujAktKartya);
             // aktKartyaHely.style.boxShadow = "none";
