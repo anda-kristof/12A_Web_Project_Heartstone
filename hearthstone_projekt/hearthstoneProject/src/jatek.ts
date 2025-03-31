@@ -164,8 +164,8 @@ export default class Jatek{
     private ujJatek(): void {
         manaP1 = 0;
         manaP2 = 0;
-        hpP1 = 5;
-        hpP2 = 5;
+        hpP1 = 50;
+        hpP2 = 50;
         this.playerBarUpdate();
         this.palya!.innerHTML = `
                     <div id="player2_row">
